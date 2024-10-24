@@ -1,7 +1,6 @@
 import {ROUTES} from '@constants/Routes';
 
 declare global {
-
   type DrawerScreenNames = keyof typeof ROUTES.Drawer;
   type DrawerScreenParamList = Record<DrawerScreenNames, undefined>;
   type DrawerNavigationType = NavigationProp<DrawerScreenParamList>;
@@ -11,6 +10,9 @@ declare global {
   type BottomTabNavigationType = NavigationProp<BottomTabScreenParamList>;
 
   type MovieScreenNames = keyof typeof ROUTES.MOVIES_STACK_SCREEN;
-  type MovieScreenParamList = Record<MovieScreenNames, undefined>;
+  type MovieScreenParamList = {
+    MOVIES_SCREEN: undefined;
+    MOVIE_DETAILS: {movieId: number};
+  };
   type MovieNavigationType = NavigationProp<MovieScreenParamList>;
 }
