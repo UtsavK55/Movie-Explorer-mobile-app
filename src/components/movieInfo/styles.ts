@@ -1,17 +1,8 @@
 import {StyleSheet} from 'react-native';
 
-import {windowHeight, windowWidth} from '@constants/dimensions';
 import {theme} from '@theme/themes';
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  movieImage: {
-    width: windowWidth,
-    height: windowHeight * 0.3,
-    aspectRatio: 1.75,
-  },
   title: {
     fontSize: 28,
     marginTop: 20,
@@ -33,12 +24,6 @@ export const styles = StyleSheet.create({
     color: theme.colors.textSecondary,
     fontWeight: 'bold',
   },
-  sectionTitle: {
-    marginVertical: 20,
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginHorizontal: 10,
-  },
   overview: {
     marginHorizontal: 10,
     marginVertical: 10,
@@ -53,7 +38,4 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
   },
-  recommendContainer:{
-    marginTop:40
-  }
 });

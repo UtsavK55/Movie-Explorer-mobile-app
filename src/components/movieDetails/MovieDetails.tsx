@@ -2,17 +2,16 @@ import {useEffect, useState} from 'react';
 import {Image, ScrollView, Text, View} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
-
 import {imageUrl} from '@helpers/helper';
 import {fetchData} from '@network/apiMethods';
-import HorizontalMovieScroll from '@components/horizontalMovieScroll/HorizontalMovieScroll';
+import HorizontalMovieScroll from '@components/horizontalMovieScroll/index';
+import MovieInfo from '@components/movieInfo/index';
 
 import {styles} from './styles';
 
-const MovieDetailsComponent = () => {
+const MovieDetails = () => {
   const route = useRoute<RouteProp<MovieScreenParamList, 'MOVIE_DETAILS'>>();
-  const movieId = route?.params?.movieId;
+  const {movieId} = route?.params;
 
   const [movieDetails, setMovieDetails] = useState<MovieCardData>({
     id: movieId,
@@ -45,7 +44,8 @@ const MovieDetailsComponent = () => {
       `/movie/${movieId}/recommendations`,
       {params: {page: '1'}},
     );
-    setRecommendation(
+
+    const recommendationData =
       reccomendMovies?.results?.map(
         ({
           id,
@@ -64,8 +64,9 @@ const MovieDetailsComponent = () => {
           vote_count,
           release_date,
         }),
-      ) || [],
-    );
+      ) || [];
+      
+    setRecommendation(recommendationData);
 
     const {
       id,
@@ -80,44 +81,26 @@ const MovieDetailsComponent = () => {
       genre_ids,
     } = movieData;
 
-    for (const key in movieDetails) {
-      setMovieDetails({
-        id: id,
-        title: title,
-        poster_path: poster_path,
-        backdrop_path: backdrop_path,
-        overview: overview,
-        vote_average: vote_average,
-        vote_count: vote_count,
-        release_date: release_date,
-        adult: adult,
-        genre_ids: genre_ids,
-      });
-    }
+    const selectedMovieDetails = {
+      id,
+      title,
+      poster_path,
+      backdrop_path,
+      overview,
+      vote_average,
+      vote_count,
+      release_date,
+      adult,
+      genre_ids,
+    };
+    setMovieDetails(selectedMovieDetails);
   };
 
   useEffect(() => {
     getData();
   }, [movieId]);
 
-  const {
-    title,
-    backdrop_path,
-    overview,
-    release_date,
-    vote_average,
-    vote_count,
-    adult,
-    genre_ids,
-  } = movieDetails;
-
-  const roundedRating = Math.round(vote_average / 2);
-  const filledStars = roundedRating;
-  const borderStars = 5 - roundedRating;
-
-  const movieGenre = genre_ids.map(genreId => {
-    return genreArr.find(({id}) => id === genreId);
-  });
+  const {backdrop_path} = movieDetails;
 
   return (
     <ScrollView style={styles.container}>
@@ -126,39 +109,7 @@ const MovieDetailsComponent = () => {
         resizeMode="contain"
         style={styles.movieImage}
       />
-
-      <Text style={styles.title}>{title}</Text>
-      <View style={styles.infoContainer}>
-        <Text style={styles.info}>{release_date}</Text>
-        <Text>|</Text>
-        <Text>
-          {Array.from({length: filledStars}).map((_, index) => (
-            <Icon
-              key={`filled-${index}`}
-              name="star"
-              size={14}
-              color={'black'}
-            />
-          ))}
-          {Array.from({length: borderStars}).map((_, index) => (
-            <Icon
-              key={`border-${index}`}
-              name="star-border"
-              size={14}
-              color={'black'}
-            />
-          ))}
-        </Text>
-        <Text style={styles.info}>({vote_count})</Text>
-        <Text>|</Text>
-        <Text style={styles.info}>{adult ? 'Adult 18+' : 'U/A 16+'}</Text>
-      </View>
-      <View style={styles.genreContainer}>
-        {movieGenre?.map(({name, id}) => (
-          <Text key={id}>{name}</Text>
-        ))}
-      </View>
-      <Text style={styles.overview}>{overview}</Text>
+      <MovieInfo movieDetails={movieDetails} genreArr={genreArr} />
       <View style={styles.recommendContainer}>
         <HorizontalMovieScroll
           data={recommendation}
@@ -169,4 +120,4 @@ const MovieDetailsComponent = () => {
   );
 };
 
-export default MovieDetailsComponent;
+export default MovieDetails;
