@@ -10,6 +10,7 @@ import MovieInfo from '@components/movieInfo/index';
 import {styles} from './styles';
 
 const MovieDetails = () => {
+  
   const route = useRoute<RouteProp<MovieScreenParamList, 'MOVIE_DETAILS'>>();
   const {movieId} = route?.params;
 
@@ -65,7 +66,7 @@ const MovieDetails = () => {
           release_date,
         }),
       ) || [];
-      
+
     setRecommendation(recommendationData);
 
     const {
@@ -97,7 +98,9 @@ const MovieDetails = () => {
   };
 
   useEffect(() => {
-    getData();
+    if (movieId) {
+      getData();
+    }
   }, [movieId]);
 
   const {backdrop_path} = movieDetails;

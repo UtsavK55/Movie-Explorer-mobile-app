@@ -1,7 +1,8 @@
 import {useMemo} from 'react';
 import {Text, View} from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Rating from '@components/rating/index';
+
 import {styles} from './styles';
 
 const MovieInfo = ({
@@ -21,17 +22,11 @@ const MovieInfo = ({
     genre_ids,
   } = movieDetails;
 
-  const {filledStars, borderStars} = useMemo(() => {
-    const roundedRating = Math.round(vote_average / 2);
-    return {
-      filledStars: roundedRating,
-      borderStars: 5 - roundedRating,
-    };
-  }, [vote_average]);
-
-  const movieGenre = genre_ids?.map(genreId => {
-    return genreArr?.find(({id}) => id === genreId);
-  });
+  const movieGenre = useMemo(() => {
+    return genre_ids.map(genreId => {
+      return genreArr.find(({id}) => id === genreId);
+    });
+  }, [genre_ids, genreArr]);
 
   return (
     <View>
@@ -39,24 +34,7 @@ const MovieInfo = ({
       <View style={styles.infoContainer}>
         <Text style={styles.info}>{release_date}</Text>
         <Text>|</Text>
-        <Text>
-          {Array.from({length: filledStars}).map((_, index) => (
-            <Icon
-              key={`filled-${index}`}
-              name="star"
-              size={14}
-              color={'black'}
-            />
-          ))}
-          {Array.from({length: borderStars}).map((_, index) => (
-            <Icon
-              key={`border-${index}`}
-              name="star-border"
-              size={14}
-              color={'black'}
-            />
-          ))}
-        </Text>
+        <Rating vote_average={vote_average} />
         <Text style={styles.info}>({vote_count})</Text>
         <Text>|</Text>
         <Text style={styles.info}>{adult ? 'Adult 18+' : 'U/A 16+'}</Text>
