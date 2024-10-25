@@ -13,6 +13,8 @@ declare global {
   type MovieScreenParamList = {
     MOVIES_SCREEN: undefined;
     MOVIE_DETAILS: {movieId: number};
+    SEARCH_SCREEN: undefined;
+    MODAL_SCREEN: undefined;
   };
   type MovieNavigationType = NavigationProp<MovieScreenParamList>;
 }

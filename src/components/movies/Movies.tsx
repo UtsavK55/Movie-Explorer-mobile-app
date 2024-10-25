@@ -1,20 +1,24 @@
 import {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 
-import Carousel from '@components/carousel/Carousel';
-import HorizontalMovieScroll from '@components/horizontalMovieScroll/HorizontalMovieScroll';
+import Carousel from '@components/carousel';
+import HorizontalMovieScroll from '@components/horizontalMovieScroll';
 import {getAllMovies} from '@helpers/helper';
+import Loader from '@components/loader';
+import {useLoadingContext} from '@contexts/LoadingContext';
 
 import {styles} from './styles';
 
-const MoviesComponent = () => {
-  
+const Movies = () => {
+  const {isLoading, setIsLoading} = useLoadingContext();
+
   const [carouselData, setCarouselData] = useState([]);
   const [popularData, setPopularData] = useState([]);
   const [oldData, setOldData] = useState([]);
   const [mostViewedData, setMostViewedData] = useState([]);
 
   const getData = async () => {
+    setIsLoading(true);
     const carouselMovies = await getAllMovies(1, 'revenue.desc');
     setCarouselData(carouselMovies);
 
@@ -26,11 +30,16 @@ const MoviesComponent = () => {
 
     const mostViewedMovies = await getAllMovies(1, 'vote_count.desc');
     setMostViewedData(mostViewedMovies);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     getData();
   }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -42,4 +51,4 @@ const MoviesComponent = () => {
   );
 };
 
-export default MoviesComponent;
+export default Movies;

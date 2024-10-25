@@ -1,4 +1,4 @@
- export const ROUTES = {
+export const ROUTES = {
   Drawer: {
     HOME: 'HOME',
     PROFILE: 'PROFILE',
@@ -10,5 +10,7 @@
   MOVIES_STACK_SCREEN: {
     MOVIES_SCREEN: 'MOVIES_SCREEN',
     MOVIE_DETAILS: 'MOVIE_DETAILS',
+    SEARCH_SCREEN: 'SEARCH_SCREEN',
+    MODAL_SCREEN: 'MODAL_SCREEN',
   },
 } as const;

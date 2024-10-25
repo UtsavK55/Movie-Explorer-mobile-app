@@ -12,3 +12,10 @@ interface MovieCardData {
 }
 
 type MovieCardDataArr = MovieCardData[];
+
+interface genre {
+  id: number;
+  name: string;
+}
+
+type GenreArr = genre[];

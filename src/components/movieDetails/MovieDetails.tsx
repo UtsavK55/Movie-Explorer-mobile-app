@@ -1,16 +1,19 @@
 import {useEffect, useState} from 'react';
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, View} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 
 import {imageUrl} from '@helpers/helper';
 import {fetchData} from '@network/apiMethods';
 import HorizontalMovieScroll from '@components/horizontalMovieScroll/index';
 import MovieInfo from '@components/movieInfo/index';
+import {useLoadingContext} from '@contexts/LoadingContext';
+import Loader from '@components/loader';
 
 import {styles} from './styles';
 
 const MovieDetails = () => {
-  
+  const {isLoading, setIsLoading} = useLoadingContext();
+
   const route = useRoute<RouteProp<MovieScreenParamList, 'MOVIE_DETAILS'>>();
   const {movieId} = route?.params;
 
@@ -31,6 +34,7 @@ const MovieDetails = () => {
   const [genreArr, setGenreArr] = useState([]);
 
   const getData = async () => {
+    setIsLoading(true);
     const externalId = await fetchData(`/movie/${movieId}/external_ids`);
 
     const movie = await fetchData(`/find/${externalId?.imdb_id}`, {
@@ -95,6 +99,8 @@ const MovieDetails = () => {
       genre_ids,
     };
     setMovieDetails(selectedMovieDetails);
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -104,6 +110,10 @@ const MovieDetails = () => {
   }, [movieId]);
 
   const {backdrop_path} = movieDetails;
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <ScrollView style={styles.container}>

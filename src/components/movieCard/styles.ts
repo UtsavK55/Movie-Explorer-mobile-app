@@ -1,10 +1,11 @@
-import {windowHeight, windowWidth} from '@src/constants/dimensions';
 import {StyleSheet} from 'react-native';
+import {windowHeight, windowWidth} from '@constants/dimensions';
 
 export const styles = StyleSheet.create({
   container: {
     width: windowWidth * 0.35,
     marginHorizontal: 8,
+    marginVertical:10
   },
   largeContainer: {
     height: windowHeight * 0.6,

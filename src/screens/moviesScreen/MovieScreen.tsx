@@ -1,10 +1,10 @@
 import BaseContainer from '@components/baseContainer';
-import MoviesComponent from '@components/moviesComponent';
+import Movies from '@src/components/movies';
 
 const MoviesScreen = () => {
   return (
     <BaseContainer>
-      <MoviesComponent />
+      <Movies />
     </BaseContainer>
   );
 };
