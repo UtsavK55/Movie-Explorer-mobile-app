@@ -9,8 +9,7 @@ import {colors} from '@theme/themes';
 
 import {styles} from './styles';
 
-const ConfirmationModal = () => {
-
+const FavouritesConfirmation = () => {
   const navigation = useNavigation<MovieNavigationType>();
   const route = useRoute<RouteProp<MovieScreenParamList, 'MODAL_SCREEN'>>();
   const {movieId, title, isAdding} = route?.params;
@@ -28,7 +27,6 @@ const ConfirmationModal = () => {
   };
 
   return (
-    
     <View style={styles.container}>
       <View style={styles.card}>
         <Text style={styles.title}>
@@ -67,4 +65,4 @@ const ConfirmationModal = () => {
   );
 };
 
-export default ConfirmationModal;
+export default FavouritesConfirmation;
