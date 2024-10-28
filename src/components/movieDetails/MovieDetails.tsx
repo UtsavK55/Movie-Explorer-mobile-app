@@ -7,8 +7,7 @@ import MovieInfo from '@components/movieInfo';
 import Loader from '@components/loader';
 import {imageUrl} from '@helpers/helper';
 import {fetchData} from '@network/apiMethods';
-import { colors } from '@theme/themes';
-
+import {colors} from '@theme/themes';
 
 import {styles} from './styles';
 
@@ -113,7 +112,7 @@ const MovieDetails = () => {
   const {backdrop_path} = movieDetails;
 
   if (isLoading) {
-    return <Loader size={'large'} color={colors.primary} />;
+    return <Loader />;
   }
 
   return (

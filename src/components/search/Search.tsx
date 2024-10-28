@@ -87,7 +87,7 @@ const Search = () => {
       />
 
       {isLoading ? (
-        <Loader size={'large'} color={colors.primary} />
+        <Loader />
       ) : searchTerm != '' && !data.length ? (
         <Text style={styles.tooltip}>No movie found</Text>
       ) : (
