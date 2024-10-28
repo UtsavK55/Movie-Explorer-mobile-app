@@ -2,17 +2,18 @@ import {useEffect, useState} from 'react';
 import {Image, ScrollView, View} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 
+import HorizontalMovieScroll from '@components/horizontalMovieScroll';
+import MovieInfo from '@components/movieInfo';
+import Loader from '@components/loader';
 import {imageUrl} from '@helpers/helper';
 import {fetchData} from '@network/apiMethods';
-import HorizontalMovieScroll from '@components/horizontalMovieScroll/index';
-import MovieInfo from '@components/movieInfo/index';
-import {useLoadingContext} from '@contexts/LoadingContext';
-import Loader from '@components/loader';
+import { colors } from '@theme/themes';
+
 
 import {styles} from './styles';
 
 const MovieDetails = () => {
-  const {isLoading, setIsLoading} = useLoadingContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   const route = useRoute<RouteProp<MovieScreenParamList, 'MOVIE_DETAILS'>>();
   const {movieId} = route?.params;
@@ -112,7 +113,7 @@ const MovieDetails = () => {
   const {backdrop_path} = movieDetails;
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader size={'large'} color={colors.primary} />;
   }
 
   return (

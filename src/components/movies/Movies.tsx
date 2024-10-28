@@ -3,14 +3,14 @@ import {ScrollView} from 'react-native';
 
 import Carousel from '@components/carousel';
 import HorizontalMovieScroll from '@components/horizontalMovieScroll';
-import {getAllMovies} from '@helpers/helper';
 import Loader from '@components/loader';
-import {useLoadingContext} from '@contexts/LoadingContext';
+import {getAllMovies} from '@helpers/helper';
+import {colors} from '@theme/themes';
 
 import {styles} from './styles';
 
 const Movies = () => {
-  const {isLoading, setIsLoading} = useLoadingContext();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [carouselData, setCarouselData] = useState([]);
   const [popularData, setPopularData] = useState([]);
@@ -38,7 +38,7 @@ const Movies = () => {
   }, []);
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader size={'large'} color={colors.primary} />;
   }
 
   return (

@@ -13,9 +13,15 @@ interface MovieCardData {
 
 type MovieCardDataArr = MovieCardData[];
 
-interface genre {
+interface Genre {
   id: number;
   name: string;
 }
 
-type GenreArr = genre[];
+type Genres = Genre[];
+
+interface SearchInputProps {
+  searchTerm: string;
+  setSearchTerm: Dispatch<SetStateAction<string>>;
+  placeHolder: string;
+}

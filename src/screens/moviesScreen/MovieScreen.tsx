@@ -1,5 +1,5 @@
 import BaseContainer from '@components/baseContainer';
-import Movies from '@src/components/movies';
+import Movies from '@components/movies';
 
 const MoviesScreen = () => {
   return (
