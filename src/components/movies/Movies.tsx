@@ -4,32 +4,44 @@ import {ScrollView} from 'react-native';
 import Carousel from '@components/carousel';
 import HorizontalMovieScroll from '@components/horizontalMovieScroll';
 import Loader from '@components/loader';
-import {getAllMovies} from '@helpers/helper';
+
+import {discover} from '@network/apiUrls';
+import {fetchData} from '@network/apiMethods';
 import {colors} from '@theme/themes';
 
 import {styles} from './styles';
 
 const Movies = () => {
   const [isLoading, setIsLoading] = useState(false);
-
   const [carouselData, setCarouselData] = useState([]);
-  const [popularData, setPopularData] = useState([]);
-  const [oldData, setOldData] = useState([]);
-  const [mostViewedData, setMostViewedData] = useState([]);
 
   const getData = async () => {
     setIsLoading(true);
-    const carouselMovies = await getAllMovies(1, 'revenue.desc');
+    const movies = await fetchData(discover, {
+      params: {page: 1, sort_by: 'revenue.desc'},
+    });
+    const carouselMovies =
+      movies?.results?.map(
+        ({
+          id,
+          title,
+          poster_path,
+          overview,
+          vote_average,
+          vote_count,
+          release_date,
+        }: MovieCardData) => ({
+          id,
+          title,
+          poster_path,
+          overview,
+          vote_average,
+          vote_count,
+          release_date,
+        }),
+      ) || [];
+
     setCarouselData(carouselMovies);
-
-    const popularMovies = await getAllMovies(1, 'popularity.desc');
-    setPopularData(popularMovies);
-
-    const oldMovies = await getAllMovies(1, 'primary_release_date.asc');
-    setOldData(oldMovies);
-
-    const mostViewedMovies = await getAllMovies(1, 'vote_count.desc');
-    setMostViewedData(mostViewedMovies);
     setIsLoading(false);
   };
 
@@ -40,15 +52,25 @@ const Movies = () => {
   if (isLoading) {
     return <Loader size={'large'} color={colors.primary} />;
   }
-
   return (
     <ScrollView style={styles.container}>
       <Carousel data={carouselData} />
-      <HorizontalMovieScroll data={popularData} sectionTitle="Popular movies" />
-      <HorizontalMovieScroll data={mostViewedData} sectionTitle="Most viewed" />
-      <HorizontalMovieScroll data={oldData} sectionTitle="Old is Gold" />
+      <HorizontalMovieScroll
+        url={discover}
+        sortBy="popularity.desc"
+        sectionTitle="Popular movies"
+      />
+      <HorizontalMovieScroll
+        url={discover}
+        sortBy="vote_count.desc"
+        sectionTitle="Most viewed"
+      />
+      <HorizontalMovieScroll
+        url={discover}
+        sortBy="primary_release_date.asc"
+        sectionTitle="Old is Gold"
+      />
     </ScrollView>
   );
 };
-
 export default Movies;
