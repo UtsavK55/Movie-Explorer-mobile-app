@@ -5,20 +5,42 @@ import Carousel from '@components/carousel';
 import HorizontalMovieScroll from '@components/horizontalMovieScroll';
 import Loader from '@components/loader';
 
-import {getAllMovies} from '@helpers/helper';
 import {discover} from '@network/apiUrls';
+import {fetchData} from '@network/apiMethods';
 import {colors} from '@theme/themes';
 
 import {styles} from './styles';
 
 const Movies = () => {
-  
   const [isLoading, setIsLoading] = useState(false);
   const [carouselData, setCarouselData] = useState([]);
 
   const getData = async () => {
     setIsLoading(true);
-    const carouselMovies = await getAllMovies(1, 'revenue.desc');
+    const movies = await fetchData(discover, {
+      params: {page: 1, sort_by: 'revenue.desc'},
+    });
+    const carouselMovies =
+      movies?.results?.map(
+        ({
+          id,
+          title,
+          poster_path,
+          overview,
+          vote_average,
+          vote_count,
+          release_date,
+        }: MovieCardData) => ({
+          id,
+          title,
+          poster_path,
+          overview,
+          vote_average,
+          vote_count,
+          release_date,
+        }),
+      ) || [];
+
     setCarouselData(carouselMovies);
     setIsLoading(false);
   };

@@ -4,7 +4,7 @@ import BaseContainer from '@components/baseContainer';
 import Search from '@components/search';
 
 import usePagination from '@hooks/usePagination';
-import {search} from '@network/apiUrls';
+import {search, searchQuery} from '@network/apiUrls';
 
 const SearchScreen = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,7 +21,7 @@ const SearchScreen = () => {
   useEffect(() => {
     // Reset pagination state when search term changes
     if (searchTerm) {
-      setUrl(`/search/movie?query=${encodeURIComponent(searchTerm)}`);
+      setUrl(searchQuery(searchTerm));
       handleRefresh();
     }
   }, [searchTerm]);
