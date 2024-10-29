@@ -1,4 +1,4 @@
-import {FlatList, RefreshControl, StyleSheet, View} from 'react-native';
+import {FlatList, RefreshControl, View} from 'react-native';
 
 import BaseContainer from '@components/baseContainer';
 import FavouriteMovieCard from '@components/favouriteMovieCard';
@@ -9,10 +9,9 @@ import {accountId} from '@constants/token';
 import usePagination from '@hooks/usePagination';
 import {account} from '@network/apiUrls';
 
-import {colors} from '@theme/themes';
+import {styles} from './styles';
 
 const FavouritesScreen = () => {
-  
   const {data, refreshing, loadingMore, handleRefresh, loadMore} =
     usePagination(account(accountId), 'created_at.desc');
 
@@ -40,28 +39,5 @@ const FavouritesScreen = () => {
     </BaseContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.search,
-    paddingTop: 50,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  listContainer: {
-    paddingHorizontal: 16,
-  },
-  emptyText: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: colors.textSecondary,
-    marginTop: 20,
-  },
-});
 
 export default FavouritesScreen;
