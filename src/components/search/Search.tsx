@@ -1,36 +1,23 @@
-import {useEffect, useState} from 'react';
 import {FlatList, Text, View, RefreshControl} from 'react-native';
 
 import Loader from '@components/loader';
 import MovieCard from '@components/movieCard';
 import SearchInput from '@components/searchInput';
+import NoDataFound from '@components/noDataFound';
 
-import usePagination from '@hooks/usePagination';
-import {search} from '@network/apiUrls';
 import {colors} from '@theme/themes';
 import {styles} from './styles';
 
-const Search = () => {
-  
-  const [searchTerm, setSearchTerm] = useState('');
-  const [url, setUrl] = useState(search);
-  const {
-    data,
-    refreshing,
-    loadingMore,
-    handleRefresh,
-    loadMore,
-    initialLoader,
-  } = usePagination(url);
-
-  useEffect(() => {
-    // Reset pagination state when search term changes
-    if (searchTerm) {
-      setUrl(`/search/movie?query=${encodeURIComponent(searchTerm)}`);
-      handleRefresh();
-    }
-  }, [searchTerm]);
-
+const Search = ({
+  searchTerm,
+  setSearchTerm,
+  data,
+  loadMore,
+  initialLoader,
+  refreshing,
+  handleRefresh,
+  loadingMore,
+}: SearchProps) => {
   return (
     <View style={styles.container}>
       <SearchInput
@@ -41,8 +28,6 @@ const Search = () => {
 
       {initialLoader ? (
         <Loader />
-      ) : searchTerm && !data.length ? (
-        <Text style={styles.tooltip}>No movie found</Text>
       ) : (
         <FlatList
           data={data}
@@ -58,6 +43,9 @@ const Search = () => {
             loadingMore ? (
               <Loader size={'small'} color={colors.primary} />
             ) : null
+          }
+          ListEmptyComponent={
+            searchTerm && !data?.length ? <NoDataFound /> : null
           }
         />
       )}

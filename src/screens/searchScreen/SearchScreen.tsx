@@ -1,11 +1,42 @@
-import BaseContainer from '@src/components/baseContainer';
-import Search from '@src/components/search';
-import {Text} from 'react-native';
+import {useEffect, useState} from 'react';
+
+import BaseContainer from '@components/baseContainer';
+import Search from '@components/search';
+
+import usePagination from '@hooks/usePagination';
+import {search} from '@network/apiUrls';
 
 const SearchScreen = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [url, setUrl] = useState(search);
+  const {
+    data,
+    refreshing,
+    loadingMore,
+    handleRefresh,
+    loadMore,
+    initialLoader,
+  } = usePagination(url);
+
+  useEffect(() => {
+    // Reset pagination state when search term changes
+    if (searchTerm) {
+      setUrl(`/search/movie?query=${encodeURIComponent(searchTerm)}`);
+      handleRefresh();
+    }
+  }, [searchTerm]);
   return (
     <BaseContainer>
-      <Search />
+      <Search
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        data={data}
+        refreshing={refreshing}
+        loadingMore={loadingMore}
+        initialLoader={initialLoader}
+        loadMore={loadMore}
+        handleRefresh={handleRefresh}
+      />
     </BaseContainer>
   );
 };
