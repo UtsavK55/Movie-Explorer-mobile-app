@@ -17,7 +17,7 @@ const LoginScreen = () => {
     
   const { setLoginId } = useUserLoginContext();
   const [inputs, setInputs] = useState<Inputs>({
-    userName: {
+    username: {
       value: '',
       isValid: true,
       errorMessage: '',
@@ -31,12 +31,12 @@ const LoginScreen = () => {
 
   const inputConfig = [
     {
-      id: 'userName' as const,
-      label: 'Username',
-      regex: userNameRegex,
+      id: 'username' as const,
+      label: 'username',
+      regex: usernameRegex,
       errorMessage: {
-        required: 'userName is required.',
-        invalid: 'Please enter a valid userName.',
+        required: 'username is required.',
+        invalid: 'Please enter a valid username.',
       },
     },
     {
@@ -67,7 +67,7 @@ const LoginScreen = () => {
   const handleSubmit = async () => {
     try {
       const loginData = {
-        userName: inputs.userName.value,
+        username: inputs.username.value,
         password: inputs.password.value,
       };
 
@@ -94,18 +94,19 @@ const LoginScreen = () => {
 
       if (hasError) {
         setInputs({
-          userName: updatedInputs[0],
+          username: updatedInputs[0],
           password: updatedInputs[1],
         });
         return;
       }
 
+      const {username, password} = loginData
       const reqToken = await fetchData(newToken);
       const requestToken = reqToken?.request_token;
       const validLogin = await addData(validateLogin, {
         request_token: requestToken,
-        username: loginData.userName,
-        password: loginData.password,
+        username,
+        password,
       });
 
       if (validLogin?.status === 200) {
