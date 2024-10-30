@@ -1,19 +1,16 @@
-import {createDrawerNavigator} from '@react-navigation/drawer';
-
-import BottomTabNavigator from '@navigation/BottomTabNavigator';
-import Profile from '@screens/profile/Profile';
-import {ROUTES} from '@constants/Routes';
+import Loader from '@components/loader';
+import { useUserLoginContext } from '@contexts/LoginContext';
+import DrawerNavigator from '@navigation/DrawerNavigator';
+import AuthNavigator from '@navigation/AuthNavigator';
 
 const Navigator = () => {
-    
-  const Drawer = createDrawerNavigator<DrawerScreenParamList>();
+  const { loginId, isLoading } = useUserLoginContext();
 
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen name={ROUTES.Drawer.HOME} component={BottomTabNavigator} />
-      <Drawer.Screen name={ROUTES.Drawer.PROFILE} component={Profile} />
-    </Drawer.Navigator>
-  );
+  if (isLoading) {
+    return <Loader />;
+  }
+  console.log(loginId);
+  return <>{loginId ? <DrawerNavigator /> : <AuthNavigator />}</>;
 };
 
 export default Navigator;
