@@ -1,16 +1,16 @@
-import {useEffect, useState} from 'react';
-import {ScrollView} from 'react-native';
+import { useEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
 
 import Carousel from '@components/carousel';
 import HorizontalMovieScroll from '@components/horizontalMovieScroll';
 import BaseContainer from '@components/baseContainer';
 import Loader from '@components/loader';
+import { discover } from '@network/apiUrls';
+import { fetchData } from '@network/apiMethods';
+import { movieSections } from '@constants/constants';
+import { useThemeColors } from '@theme/themes';
 
-import {discover} from '@network/apiUrls';
-import {fetchData} from '@network/apiMethods';
-
-import {useThemeColors} from '@theme/themes';
-import {styles} from './styles';
+import { styles } from './styles';
 
 const MoviesScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,7 @@ const MoviesScreen = () => {
   const getData = async () => {
     setIsLoading(true);
     const movies = await fetchData(discover, {
-      params: {page: 1, sort_by: 'revenue.desc'},
+      params: { page: 1, sort_by: 'revenue.desc' },
     });
     const carouselMovies =
       movies?.results?.map(
@@ -58,21 +58,14 @@ const MoviesScreen = () => {
     <BaseContainer>
       <ScrollView style={styles().container}>
         <Carousel data={carouselData} />
-        <HorizontalMovieScroll
-          url={discover}
-          sortBy="popularity.desc"
-          sectionTitle="Popular movies"
-        />
-        <HorizontalMovieScroll
-          url={discover}
-          sortBy="vote_count.desc"
-          sectionTitle="Most viewed"
-        />
-        <HorizontalMovieScroll
-          url={discover}
-          sortBy="primary_release_date.asc"
-          sectionTitle="Old is Gold"
-        />
+        {movieSections.map(({ id, sortBy, sectionTitle }) => (
+          <HorizontalMovieScroll
+            key={id}
+            url={discover}
+            sortBy={sortBy}
+            sectionTitle={sectionTitle}
+          />
+        ))}
       </ScrollView>
     </BaseContainer>
   );
