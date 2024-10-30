@@ -7,7 +7,7 @@ import {
 } from 'react';
 
 import Loader from '@components/loader';
-import { storageKeys } from '@constants/storageKeys';
+import { STORAGE_KEYS } from '@constants/storageKeys';
 import { getData } from '@storage/storage';
 
 const UserLoginContext = createContext<UserLoginContextType | undefined>(
@@ -32,7 +32,7 @@ export const UserLoginProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const userId = await getData(storageKeys.loginId);
+      const userId = await getData(STORAGE_KEYS.LOGIN_ID);
       setLoginId(userId || '');
       setIsLoading(false);
     };
