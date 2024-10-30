@@ -1,7 +1,8 @@
 import {useRef, useState} from 'react';
-import {FlatList, View, ViewToken} from 'react-native';
+import {FlatList, Text, View, ViewToken} from 'react-native';
 
-import MovieCard from '@components/movieCard/MovieCard';
+import MovieCard from '@components/movieCard';
+import NoDataFound from '@components/noDataFound';
 
 import {styles} from './styles';
 
@@ -22,7 +23,7 @@ const Carousel = ({data}: {data: MovieCardDataArr}) => {
   }).current;
 
   return (
-    <View style={styles.carouselContainer}>
+    <View style={styles().carouselContainer}>
       <FlatList
         ref={flatListRef}
         data={data}
@@ -32,14 +33,15 @@ const Carousel = ({data}: {data: MovieCardDataArr}) => {
         showsHorizontalScrollIndicator={false}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
+        ListEmptyComponent={<NoDataFound item="movie" />}
       />
-      <View style={styles.pagination}>
+      <View style={styles().pagination}>
         {data?.map((_, index) => (
           <View
             key={index}
             style={[
-              styles.paginationDot,
-              index === activeIndex && styles.paginationDotActive,
+              styles().paginationDot,
+              index === activeIndex && styles().paginationDotActive,
             ]}
           />
         ))}

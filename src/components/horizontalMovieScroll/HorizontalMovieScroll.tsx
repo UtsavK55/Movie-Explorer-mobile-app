@@ -25,8 +25,8 @@ const HorizontalMovieScroll = ({
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.sectionTitle}>{sectionTitle}</Text>
+    <View style={styles().container}>
+      <Text style={styles().sectionTitle}>{sectionTitle}</Text>
       <FlatList
         data={data}
         renderItem={({item}) => <MovieCard data={item} />}
