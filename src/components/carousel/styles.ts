@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import {breakpoints, useThemeColors} from '@theme/themes';
-import {windowHeight, windowWidth} from '@constants/dimensions';
+import { breakpoints, globalStyles, useThemeColors } from '@theme/themes';
+import { windowHeight, windowWidth } from '@constants/dimensions';
 
 export const styles = () => {
   const colors = useThemeColors();
@@ -15,7 +15,7 @@ export const styles = () => {
       marginBottom: 10,
     },
     pagination: {
-      flexDirection: 'row',
+      ...globalStyles.flexRow,
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 10,

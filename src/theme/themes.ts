@@ -1,4 +1,5 @@
-import {useThemeContext} from '@contexts/ThemeContext';
+import { useThemeContext } from '@contexts/ThemeContext';
+import { StyleSheet } from 'react-native';
 
 const palette = {
   purple: '#5A31F4',
@@ -13,7 +14,7 @@ const palette = {
 };
 
 export const useThemeColors = () => {
-  const {isDark} = useThemeContext();
+  const { isDark } = useThemeContext();
 
   return {
     background: isDark ? palette.black : palette.white,
@@ -41,3 +42,7 @@ export const breakpoints = {
   phone: 420,
   tablet: 768,
 };
+
+export const globalStyles = StyleSheet.create({
+  flexRow: { flexDirection: 'row' },
+});
