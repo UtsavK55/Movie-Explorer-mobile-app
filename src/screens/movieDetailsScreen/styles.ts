@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {breakpoints, spacing, useThemeColors} from '@theme/themes';
+import {breakpoints, fontSize, useThemeColors} from '@theme/themes';
 import {windowHeight, windowWidth} from '@constants/dimensions';
 
 export const movieDetailsStyles = () => {
@@ -17,7 +17,7 @@ export const movieDetailsStyles = () => {
     },
     sectionTitle: {
       marginVertical: 20,
-      fontSize: spacing.m,
+      fontSize: fontSize.m,
       fontWeight: 'bold',
       marginHorizontal: 10,
     },

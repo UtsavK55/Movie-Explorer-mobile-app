@@ -1,16 +1,16 @@
 import {StyleSheet} from 'react-native';
-import {spacing, useThemeColors} from '@theme/themes';
+import {fontSize, useThemeColors} from '@theme/themes';
 
 export const styles = () => {
   const colors = useThemeColors();
   return StyleSheet.create({
     title: {
-      fontSize: spacing.xl,
+      fontSize: fontSize.xl,
       marginTop: 20,
       marginHorizontal: 10,
       fontWeight: 'bold',
       textAlign: 'center',
-      color: colors.foreground,
+      color: colors.primaryText,
     },
     infoContainer: {
       flexDirection: 'row',
@@ -34,13 +34,13 @@ export const styles = () => {
     },
     genreContainer: {
       marginTop: 20,
-      color: colors.foreground,
+      color: colors.primaryText,
       flexDirection: 'row',
       gap: 8,
       alignSelf: 'center',
       justifyContent: 'center',
     },
-    genreTitleContainer: {backgroundColor: colors.foreground, padding: 6},
+    genreTitleContainer: {backgroundColor: colors.primaryText, padding: 6},
     genreTitle: {color: colors.background},
   });
 };

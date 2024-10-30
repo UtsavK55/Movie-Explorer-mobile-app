@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {spacing, useThemeColors} from '@theme/themes';
+import {fontSize, useThemeColors} from '@theme/themes';
 
 export const buttonStyles = () => {
   const colors = useThemeColors();
@@ -25,7 +25,7 @@ export const buttonStyles = () => {
     buttonText: {
       color: colors.background,
       textAlign: 'center',
-      fontSize: spacing.m,
+      fontSize: fontSize.m,
     },
 
     flatText: {

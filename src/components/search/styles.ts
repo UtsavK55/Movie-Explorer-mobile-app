@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {spacing, useThemeColors} from '@theme/themes';
+import {fontSize, useThemeColors} from '@theme/themes';
 
 export const searchStyles = () => {
   const colors = useThemeColors();
@@ -9,7 +9,7 @@ export const searchStyles = () => {
     },
     tooltip: {
       textAlign: 'center',
-      fontSize: spacing.m,
+      fontSize: fontSize.m,
       fontWeight: 'bold',
       color: colors.textSecondary,
     },

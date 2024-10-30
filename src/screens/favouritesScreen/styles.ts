@@ -1,16 +1,16 @@
 import {StyleSheet} from 'react-native';
-import {spacing, useThemeColors} from '@theme/themes';
+import {fontSize, useThemeColors} from '@theme/themes';
 
 export const styles = () => {
   const colors = useThemeColors();
   return StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: colors.search,
+      backgroundColor: colors.gray,
       paddingTop: 20,
     },
     header: {
-      fontSize: spacing.l,
+      fontSize: fontSize.l,
       fontWeight: 'bold',
       marginBottom: 20,
       textAlign: 'center',
@@ -20,7 +20,7 @@ export const styles = () => {
     },
     emptyText: {
       textAlign: 'center',
-      fontSize: spacing.m,
+      fontSize: fontSize.m,
       color: colors.textSecondary,
       marginTop: 20,
     },

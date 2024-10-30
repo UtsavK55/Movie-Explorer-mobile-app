@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 import {windowHeight, windowWidth} from '@constants/dimensions';
-import {spacing, useThemeColors} from '@theme/themes';
+import {fontSize, useThemeColors} from '@theme/themes';
 
 export const styles = () => {
   const colors = useThemeColors();
@@ -19,7 +19,7 @@ export const styles = () => {
     },
 
     text: {
-      fontSize: spacing.xxl,
+      fontSize: fontSize.xxl,
       marginHorizontal: 10,
       textAlign: 'center',
       color: colors.primary,

@@ -28,7 +28,7 @@ export const styles = () => {
       marginHorizontal: 4,
     },
     paginationDotActive: {
-      backgroundColor: colors.foreground,
+      backgroundColor: colors.primaryText,
     },
     emptyContainer: {
       flex: 1,

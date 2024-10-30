@@ -7,7 +7,7 @@ export const styles = () => {
     searchContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: colors.search,
+      backgroundColor: colors.gray,
       borderRadius: 10,
       paddingHorizontal: 12,
       marginBottom: 16,
@@ -20,7 +20,7 @@ export const styles = () => {
     searchInput: {
       flex: 1,
       height: 40,
-      color: colors.foreground,
+      color: colors.primaryText,
     },
   });
 };

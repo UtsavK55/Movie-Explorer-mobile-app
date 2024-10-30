@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {spacing, useThemeColors} from '@theme/themes';
+import {fontSize, useThemeColors} from '@theme/themes';
 
 export const styles = () => {
   const colors = useThemeColors();
@@ -11,10 +11,10 @@ export const styles = () => {
     },
     sectionTitle: {
       marginBottom: 10,
-      fontSize: spacing.m,
+      fontSize: fontSize.m,
       fontWeight: 'bold',
       marginHorizontal: 10,
-      color: colors.foreground,
+      color: colors.primaryText,
     },
   });
 };

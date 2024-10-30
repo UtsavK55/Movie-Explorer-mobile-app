@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {breakpoints, spacing, useThemeColors} from '@theme/themes';
+import {breakpoints, fontSize, useThemeColors} from '@theme/themes';
 import {windowHeight, windowWidth} from '@constants/dimensions';
 
 export const styles = () => {

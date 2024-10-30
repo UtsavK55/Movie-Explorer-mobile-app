@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {spacing, useThemeColors} from '@theme/themes';
+import {fontSize, useThemeColors} from '@theme/themes';
 
 export const styles = () => {
   const colors = useThemeColors();
@@ -10,7 +10,7 @@ export const styles = () => {
       alignItems: 'center',
     },
     card: {
-      backgroundColor: colors.search,
+      backgroundColor: colors.gray,
       borderRadius: 10,
       padding: 20,
       width: '90%',
@@ -18,7 +18,7 @@ export const styles = () => {
       alignItems: 'center',
     },
     title: {
-      fontSize: spacing.l,
+      fontSize: fontSize.l,
       fontWeight: 'bold',
       marginBottom: 20,
       textAlign: 'center',

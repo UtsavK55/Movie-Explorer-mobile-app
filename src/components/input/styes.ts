@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {spacing, useThemeColors} from '@theme/themes';
+import {fontSize, useThemeColors} from '@theme/themes';
 
 export const styles = () => {
   const colors = useThemeColors();
@@ -11,17 +11,17 @@ export const styles = () => {
     },
 
     label: {
-      fontSize: spacing.m,
+      fontSize: fontSize.m,
       color: colors.textSecondary,
       marginBottom: 4,
     },
 
     input: {
-      backgroundColor: colors.search,
+      backgroundColor: colors.gray,
       color: colors.textSecondary,
       padding: 6,
       borderRadius: 8,
-      fontSize: spacing.m,
+      fontSize: fontSize.m,
     },
 
     inputMultiline: {
@@ -30,12 +30,12 @@ export const styles = () => {
     },
 
     invalidLabel: {
-      fontSize: spacing.m,
-      color: colors.danger,
+      fontSize: fontSize.m,
+      color: colors.error,
     },
 
     invalidInput: {
-      backgroundColor: colors.danger,
+      backgroundColor: colors.error,
     },
     icon: {
       position: 'absolute',

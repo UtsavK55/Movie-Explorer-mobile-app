@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {spacing, useThemeColors} from '@theme/themes';
+import {fontSize, useThemeColors} from '@theme/themes';
 
 export const settingStyles = () => {
   const colors = useThemeColors();
@@ -9,8 +9,8 @@ export const settingStyles = () => {
       margin: 10,
     },
     title: {
-      fontSize: spacing.l,
-      color: colors.foreground,
+      fontSize: fontSize.l,
+      color: colors.primaryText,
       marginVertical: 10,
     },
   });
