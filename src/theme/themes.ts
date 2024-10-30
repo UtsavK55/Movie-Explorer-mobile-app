@@ -17,18 +17,18 @@ export const useThemeColors = () => {
 
   return {
     background: isDark ? palette.black : palette.white,
-    foreground: isDark ? palette.white : palette.black,
+    primaryText: isDark ? palette.white : palette.black,
     primary: palette.blue,
     secondary: palette.purple,
-    danger: palette.red,
+    error: palette.red,
     light: palette.gray,
     textSecondary: isDark ? palette.lightGray : palette.darkGray,
-    search: isDark ? palette.darkGray : palette.lightGray,
-    star: palette.orange,
+    gray: isDark ? palette.darkGray : palette.lightGray,
+    review: palette.orange,
   };
 };
 
-export const spacing = {
+export const fontSize = {
   s: 8,
   m: 16,
   l: 22,
