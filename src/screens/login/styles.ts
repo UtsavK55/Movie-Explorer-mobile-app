@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-
 import {windowHeight, windowWidth} from '@constants/dimensions';
 import {fontSize, useThemeColors} from '@theme/themes';
 
