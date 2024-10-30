@@ -3,7 +3,7 @@ import {styles} from './styles';
 
 const NoDataFound = ({item}: {item?: string}) => {
   return (
-    <View style={styles.container}>
+    <View style={styles().container}>
       <Text>No {item || 'data'} found</Text>
     </View>
   );

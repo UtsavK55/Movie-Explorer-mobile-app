@@ -1,8 +1,9 @@
 import {SafeAreaView} from 'react-native';
-
-import {styles} from './styles';
+import {baseContainerStyles} from './styles';
 
 const BaseContainer = ({children}: {children: React.ReactNode}) => {
+  
+  const styles = baseContainerStyles();
   return <SafeAreaView style={styles.container}>{children}</SafeAreaView>;
 };
 

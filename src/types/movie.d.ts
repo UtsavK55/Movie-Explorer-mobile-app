@@ -25,3 +25,14 @@ interface SearchInputProps {
   setSearchTerm: Dispatch<SetStateAction<string>>;
   placeHolder: string;
 }
+
+interface SearchProps {
+  searchTerm: string;
+  setSearchTerm: Dispatch<SetStateAction<string>>;
+  data: MovieCardDataArr;
+  loadMore: () => void;
+  initialLoader: boolean;
+  refreshing: boolean;
+  handleRefresh: () => void;
+  loadingMore: boolean;
+}

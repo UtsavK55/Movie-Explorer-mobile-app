@@ -1,6 +1,6 @@
 import {ActivityIndicator, View} from 'react-native';
 
-import {colors} from '@theme/themes';
+import {useThemeColors} from '@theme/themes';
 import {styles} from './styles';
 
 const Loader = ({
@@ -10,8 +10,9 @@ const Loader = ({
   size?: number | 'small' | 'large';
   color?: string;
 }) => {
+  const colors = useThemeColors();
   return (
-    <View style={styles.container}>
+    <View style={styles().container}>
       <ActivityIndicator
         size={size || 'large'}
         color={color || colors.primary}
