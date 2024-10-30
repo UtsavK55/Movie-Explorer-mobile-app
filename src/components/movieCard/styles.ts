@@ -1,39 +1,43 @@
 import {StyleSheet} from 'react-native';
+import {breakpoints, fontSize, useThemeColors} from '@theme/themes';
 import {windowHeight, windowWidth} from '@constants/dimensions';
 
-export const styles = StyleSheet.create({
-  container: {
-    width: windowWidth * 0.35,
-    marginHorizontal: 8,
-    marginVertical:10
-  },
-  largeContainer: {
-    height: windowHeight * 0.6,
-    width: windowWidth,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  movieImage: {
-    width: '100%',
-    height: windowHeight * 0.22,
-    borderRadius: 8,
-  },
-  largeMovieImage: {
-    width: windowWidth * 0.9,
-    height: windowHeight * 0.5,
-    borderRadius: 10,
-  },
-  movieTitle: {
-    marginTop: 8,
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  largeMovieTitle: {
-    fontSize: 24,
-    marginTop: 10,
-    marginHorizontal: 10,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
+export const styles = () => {
+  const colors = useThemeColors();
+  return StyleSheet.create({
+    container: {
+      width:
+        windowWidth > breakpoints.phone
+          ? windowWidth * 0.15
+          : windowWidth * 0.35,
+      marginHorizontal: 8,
+      marginVertical: 10,
+    },
+    largeContainer: {
+      height:
+        windowWidth > breakpoints.phone
+          ? windowHeight * 0.75
+          : windowHeight * 0.6,
+      width: windowWidth,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    movieImage: {
+      width: '100%',
+      height:
+        windowWidth > breakpoints.phone
+          ? windowHeight * 0.47
+          : windowHeight * 0.22,
+      borderRadius: 8,
+    },
+    largeMovieImage: {
+      width:
+        windowWidth > breakpoints.phone ? windowWidth * 0.2 : windowWidth * 0.9,
+      height:
+        windowWidth > breakpoints.phone
+          ? windowHeight * 0.6
+          : windowHeight * 0.5,
+      borderRadius: 10,
+    },
+  });
+};

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {spacing, useThemeColors} from '@theme/themes';
+import {fontSize, useThemeColors} from '@theme/themes';
 
 export const styles = () => {
   const colors = useThemeColors();
@@ -11,7 +11,7 @@ export const styles = () => {
       borderRadius: 10,
       marginBottom: 12,
       padding: 12,
-      shadowColor: colors.foreground,
+      shadowColor: colors.primaryText,
       shadowOffset: {width: 0, height: 1},
       shadowOpacity: 0.2,
       shadowRadius: 1,
@@ -30,11 +30,11 @@ export const styles = () => {
       marginRight: 10,
     },
     movieTitle: {
-      fontSize: spacing.l,
+      fontSize: fontSize.l,
       fontWeight: '600',
       marginBottom: 4,
       marginRight: 10,
-      color: colors.foreground,
+      color: colors.primaryText,
     },
     ratingContainer: {
       flexDirection: 'row',

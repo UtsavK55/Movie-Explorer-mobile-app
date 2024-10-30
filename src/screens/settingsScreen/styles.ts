@@ -1,20 +1,17 @@
 import {StyleSheet} from 'react-native';
 import {fontSize, useThemeColors} from '@theme/themes';
 
-export const styles = () => {
+export const settingStyles = () => {
   const colors = useThemeColors();
   return StyleSheet.create({
     container: {
-      marginHorizontal: 10,
-      marginVertical: 20,
       flex: 1,
+      margin: 10,
     },
-    sectionTitle: {
-      marginBottom: 10,
-      fontSize: fontSize.m,
-      fontWeight: 'bold',
-      marginHorizontal: 10,
+    title: {
+      fontSize: fontSize.l,
       color: colors.primaryText,
+      marginVertical: 10,
     },
   });
 };
