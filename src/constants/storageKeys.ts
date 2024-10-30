@@ -1,5 +1,4 @@
-export const storageKeys = {
-    loginId: 'loginId',
-    darkMode: 'darkMode'
+export const STORAGE_KEYS = {
+  LOGIN_ID: 'loginId',
+  DARK_MODE: 'darkMode'
   };
-  

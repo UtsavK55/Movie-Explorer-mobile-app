@@ -4,7 +4,7 @@ import { Image, Text, View } from 'react-native';
 import Button from '@components/button';
 import Input from '@components/input';
 import { passwordRegex, userNameRegex } from '@constants/regex';
-import { storageKeys } from '@constants/storageKeys';
+import { STORAGE_KEYS } from '@constants/storageKeys';
 import { useUserLoginContext } from '@contexts/LoginContext';
 import { logoImg, validateInput } from '@helpers/helper';
 import { addData, fetchData } from '@network/apiMethods';
@@ -14,8 +14,9 @@ import { storeData } from '@storage/storage';
 import { styles } from './styles';
 
 const LoginScreen = () => {
+    
   const { setLoginId } = useUserLoginContext();
-  const [inputs, setInputs] = useState({
+  const [inputs, setInputs] = useState<Inputs>({
     userName: {
       value: '',
       isValid: true,
@@ -28,13 +29,39 @@ const LoginScreen = () => {
     },
   });
 
-  const handleInputChange = (inputIdentifier: string, enteredValue: string) => {
-    setInputs(currentInputs => {
-      return {
-        ...currentInputs,
-        [inputIdentifier]: { value: enteredValue, isValid: true },
-      };
-    });
+  const inputConfig = [
+    {
+      id: 'userName' as const,
+      label: 'Username',
+      regex: userNameRegex,
+      errorMessage: {
+        required: 'userName is required.',
+        invalid: 'Please enter a valid userName.',
+      },
+    },
+    {
+      id: 'password' as const,
+      label: 'Password',
+      regex: passwordRegex,
+      errorMessage: {
+        required: 'Password is required.',
+        invalid: "Entered password doesn't match the password format.",
+      },
+    },
+  ];
+
+  const handleInputChange = (
+    inputIdentifier: keyof Inputs,
+    enteredValue: string,
+  ) => {
+    setInputs(currentInputs => ({
+      ...currentInputs,
+      [inputIdentifier]: {
+        value: enteredValue,
+        isValid: true,
+        errorMessage: '',
+      },
+    }));
   };
 
   const handleSubmit = async () => {
@@ -44,51 +71,49 @@ const LoginScreen = () => {
         password: inputs.password.value,
       };
 
-      const userNameError = validateInput(
-        loginData.userName,
-        userNameRegex,
-        'userName is required.',
-        'Please enter a valid userName.',
-      );
+      let hasError = false;
 
-      const passwordError = validateInput(
-        loginData.password,
-        passwordRegex,
-        'Password is required.',
-        "Entered password doesn't match the password format.",
-      );
+      const updatedInputs = inputConfig.map(input => {
+        const userInputError = validateInput(
+          loginData[input.id],
+          input.regex,
+          input.errorMessage.required,
+          input.errorMessage.invalid,
+        );
 
-      if (userNameError || passwordError) {
-        setInputs(currentInputs => ({
-          userName: {
-            ...currentInputs.userName,
-            isValid: !userNameError,
-            errorMessage: userNameError,
-          },
-          password: {
-            ...currentInputs.password,
-            isValid: !passwordError,
-            errorMessage: passwordError,
-          },
-        }));
+        if (userInputError) {
+          hasError = true;
+        }
 
+        return {
+          ...inputs[input.id],
+          isValid: !userInputError,
+          errorMessage: userInputError,
+        };
+      });
+
+      if (hasError) {
+        setInputs({
+          userName: updatedInputs[0],
+          password: updatedInputs[1],
+        });
         return;
       }
 
       const reqToken = await fetchData(newToken);
-      const request_token = reqToken?.request_token;
+      const requestToken = reqToken?.request_token;
       const validLogin = await addData(validateLogin, {
-        request_token: request_token,
+        request_token: requestToken,
         username: loginData.userName,
         password: loginData.password,
       });
 
       if (validLogin?.status === 200) {
         const session = await addData(newSession, {
-          request_token: request_token,
+          request_token: requestToken,
         });
         setLoginId(session?.data?.session_id);
-        storeData(session?.data?.session_id, storageKeys.loginId);
+        storeData(session?.data?.session_id, STORAGE_KEYS.LOGIN_ID);
       }
     } catch (error) {
       console.log(error);
@@ -99,22 +124,17 @@ const LoginScreen = () => {
     <View>
       <Image style={styles().image} source={logoImg} />
       <Text style={styles().text}>Welcome to MovieMap</Text>
-      <Input
-        label="Username"
-        invalid={!inputs.userName.isValid}
-        value={inputs.userName.value}
-        onChangeText={(value: string) => handleInputChange('userName', value)}
-        required
-        errorMessage={inputs.userName.errorMessage}
-      />
-      <Input
-        label="Password"
-        invalid={!inputs.password.isValid}
-        value={inputs.password.value}
-        onChangeText={(value: string) => handleInputChange('password', value)}
-        required
-        errorMessage={inputs.password.errorMessage}
-      />
+      {inputConfig.map(input => (
+        <Input
+          key={input.id}
+          label={input.label}
+          invalid={!inputs[input.id].isValid}
+          value={inputs[input.id].value}
+          onChangeText={value => handleInputChange(input.id, value)}
+          required
+          errorMessage={inputs[input.id].errorMessage}
+        />
+      ))}
       <View style={styles().buttonContainer}>
         <Button mode="default" label="Submit" onPress={handleSubmit} />
       </View>
