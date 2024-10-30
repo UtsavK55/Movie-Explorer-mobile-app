@@ -1,3 +1,8 @@
+export const STORAGE_KEYS = {
+  LOGIN_ID: 'loginId',
+  DARK_MODE: 'darkMode',
+};
+
 export const movieSections = [
   {
     id: '1',
@@ -16,7 +21,7 @@ export const movieSections = [
   },
 ];
 
-export const ButtonModes = {
+export const BUTTON_MODES = {
   FLAT: 'flat',
   SOLID: 'solid',
 };

@@ -1,21 +1,20 @@
-import { useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import {useState} from 'react';
+import {Image, Text, View} from 'react-native';
 
 import Button from '@components/button';
 import Input from '@components/input';
-import { passwordRegex, userNameRegex } from '@constants/regex';
-import { STORAGE_KEYS } from '@constants/storageKeys';
-import { useUserLoginContext } from '@contexts/LoginContext';
-import { logoImg, validateInput } from '@helpers/helper';
-import { addData, fetchData } from '@network/apiMethods';
-import { newSession, newToken, validateLogin } from '@network/apiUrls';
-import { storeData } from '@storage/storage';
+import {passwordRegex, userNameRegex} from '@constants/regex';
+import {STORAGE_KEYS} from '@constants/constants';
+import {useUserLoginContext} from '@contexts/LoginContext';
+import {logoImg, validateInput} from '@helpers/helper';
+import {addData, fetchData} from '@network/apiMethods';
+import {newSession, newToken, validateLogin} from '@network/apiUrls';
+import {storeData} from '@storage/storage';
 
-import { styles } from './styles';
+import {styles} from './styles';
 
 const LoginScreen = () => {
-    
-  const { setLoginId } = useUserLoginContext();
+  const {setLoginId} = useUserLoginContext();
   const [inputs, setInputs] = useState<Inputs>({
     username: {
       value: '',
@@ -32,8 +31,8 @@ const LoginScreen = () => {
   const inputConfig = [
     {
       id: 'username' as const,
-      label: 'username',
-      regex: usernameRegex,
+      label: 'Username',
+      regex: userNameRegex,
       errorMessage: {
         required: 'username is required.',
         invalid: 'Please enter a valid username.',
@@ -100,7 +99,7 @@ const LoginScreen = () => {
         return;
       }
 
-      const {username, password} = loginData
+      const {username, password} = loginData;
       const reqToken = await fetchData(newToken);
       const requestToken = reqToken?.request_token;
       const validLogin = await addData(validateLogin, {
@@ -125,17 +124,21 @@ const LoginScreen = () => {
     <View>
       <Image style={styles().image} source={logoImg} />
       <Text style={styles().text}>Welcome to MovieMap</Text>
-      {inputConfig.map(input => (
-        <Input
-          key={input.id}
-          label={input.label}
-          invalid={!inputs[input.id].isValid}
-          value={inputs[input.id].value}
-          onChangeText={value => handleInputChange(input.id, value)}
-          required
-          errorMessage={inputs[input.id].errorMessage}
-        />
-      ))}
+      {inputConfig.map(({id, label}) => {
+        const {isValid, value, errorMessage} = inputs[id];
+        return (
+          <Input
+            key={id}
+            label={label}
+            invalid={!isValid}
+            value={value}
+            onChangeText={value => handleInputChange(id, value)}
+            required
+            errorMessage={errorMessage}
+          />
+        );
+      })}
+
       <View style={styles().buttonContainer}>
         <Button mode="default" label="Submit" onPress={handleSubmit} />
       </View>

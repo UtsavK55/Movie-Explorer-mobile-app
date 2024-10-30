@@ -7,7 +7,7 @@ import {
 } from 'react';
 
 import Loader from '@components/loader';
-import { STORAGE_KEYS } from '@constants/storageKeys';
+import { STORAGE_KEYS } from '@constants/constants';
 import { getData } from '@storage/storage';
 
 const UserLoginContext = createContext<UserLoginContextType | undefined>(

@@ -1,5 +1,5 @@
 import {Pressable, Text, View} from 'react-native';
-import {ButtonModes} from '@constants/constants';
+import { BUTTON_MODES} from '@constants/constants';
 import {buttonStyles} from './styles';
 
 function Button({label, onPress, mode}: ButtonProps) {
@@ -9,11 +9,11 @@ function Button({label, onPress, mode}: ButtonProps) {
     <Pressable
       onPress={onPress}
       style={({pressed}) => pressed && styles.pressed}>
-      <View style={[styles.button, mode === ButtonModes.FLAT && styles.flat]}>
+      <View style={[styles.button, mode ===  BUTTON_MODES.FLAT && styles.flat]}>
         <Text
           style={[
             styles.buttonText,
-            mode === ButtonModes.FLAT && styles.flatText,
+            mode ===  BUTTON_MODES.FLAT && styles.flatText,
           ]}>
           {label}
         </Text>
