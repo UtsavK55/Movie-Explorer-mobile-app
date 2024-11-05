@@ -1,7 +1,9 @@
 export const ROUTES = {
+  Auth: {LOGIN:'LOGIN'},
   Drawer: {
     HOME: 'HOME',
     PROFILE: 'PROFILE',
+    SETTINGS: 'SETTINGS',
   },
   BOTTOM_TAB: {
     MOVIES: 'MOVIES',
